@@ -1,7 +1,15 @@
-import { app, BrowserWindow, dialog, ipcMain } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, autoUpdater } from 'electron';
 import * as path from 'path';
 
 let mainWindow;
+
+autoUpdater.setFeedURL({
+    provider: 'github',
+    repo: 'https://github.com/lakshya-chandra/image-filter-app.git',
+    owner: 'lakshya-chandra',
+    releaseType: 'release',
+    url: 'https://github.com/lakshya-chandra/image-filter-app'
+  });
 
 async function handleFileOpen() {
   const { canceled, filePaths } = await dialog.showOpenDialog({});
@@ -33,6 +41,10 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
+
+app.on('ready', () => {
+    autoUpdater.checkForUpdates();
+  });
 
 app.on('activate', () => {
   if (mainWindow == null) {

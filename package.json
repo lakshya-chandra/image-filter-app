@@ -1,8 +1,33 @@
 {
   "name": "image-filter-app",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "./out/main/main.js",
+  "build": {
+    "productName": "image-filter-app",
+    "appId": "com.image-filter-app.app",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "linux": {
+      "target": "AppImage"
+    },
+    "publish": {
+      "provider": "github",
+      "repo": "https://github.com/lakshya-chandra/image-filter-app.git",
+      "owner": "lakshya-chandra"
+    }
+  },
   "scripts": {
     "dev": "electron-vite dev -w",
     "build": "electron-vite build",

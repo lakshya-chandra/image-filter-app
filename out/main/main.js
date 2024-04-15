@@ -19,6 +19,13 @@ function _interopNamespaceDefault(e) {
 }
 const path__namespace = /* @__PURE__ */ _interopNamespaceDefault(path);
 let mainWindow;
+electron.autoUpdater.setFeedURL({
+  provider: "github",
+  repo: "https://github.com/lakshya-chandra/image-filter-app.git",
+  owner: "lakshya-chandra",
+  releaseType: "release",
+  url: "https://github.com/lakshya-chandra/image-filter-app"
+});
 async function handleFileOpen() {
   const { canceled, filePaths } = await electron.dialog.showOpenDialog({});
   if (!canceled) {
@@ -43,6 +50,9 @@ electron.app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     electron.app.quit();
   }
+});
+electron.app.on("ready", () => {
+  electron.autoUpdater.checkForUpdates();
 });
 electron.app.on("activate", () => {
   if (mainWindow == null) {
